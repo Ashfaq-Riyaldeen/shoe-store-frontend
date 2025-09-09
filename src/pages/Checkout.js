@@ -1,21 +1,66 @@
-import React, { useState } from 'react';
+// src/pages/Checkout.js
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Container,
-  Stepper,
-  Step,
-  StepLabel,
-  Button,
+  Paper,
   Typography,
+  Grid,
+  Card,
+  CardContent,
+  Button,
   Box,
+  Divider,
+  Alert,
+  CircularProgress,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
 } from '@mui/material';
-import { orderService } from '../services/orderService';
+import { createOrder, clearOrderSuccess } from '../store/orderSlice';
+import { clearCart } from '../store/cartSlice';
+import { toast } from 'react-toastify';
 
 const Checkout = () => {
-  const { items, total } = useSelector(state => state.cart);
-  const [activeStep, setActiveStep] = useState(0);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-  const steps = ['Review Order', 'Shipping Info', 'Confirm Order'];
+  const { items, total } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
+  const { isLoading, orderSuccess, error } = useSelector((state) => state.orders);
+
+  const [orderSummary, setOrderSummary] = useState(null);
+
+  useEffect(() => {
+    if (items.length === 0) {
+      navigate('/cart');
+      return;
+    }
+
+    // Calculate order summary
+    const shipping = total > 100 ? 0 : 10;
+    const tax = total * 0.08;
+    const finalTotal = total + shipping + tax;
+
+    setOrderSummary({
+      subtotal: total,
+      shipping,
+      tax,
+      total: finalTotal,
+    });
+  }, [items, total, navigate]);
+
+  useEffect(() => {
+    if (orderSuccess) {
+      toast.success('Order placed successfully!');
+      dispatch(clearCart());
+      dispatch(clearOrderSuccess());
+      navigate('/orders');
+    }
+  }, [orderSuccess, dispatch, navigate]);
 
   const handlePlaceOrder = async () => {
     try {
@@ -23,31 +68,138 @@ const Checkout = () => {
         products: items.map(item => ({
           product_id: item.product.id,
           quantity: item.quantity,
-          size: item.size
+          size: item.size,
         })),
-        total_amount: total
+        total_amount: orderSummary.total,
       };
-      
-      await orderService.createOrder(orderData);
-      // Redirect to success page
+
+      await dispatch(createOrder(orderData)).unwrap();
     } catch (error) {
-      console.error('Order failed:', error);
+      toast.error(error.message || 'Failed to place order');
     }
   };
 
+  if (!orderSummary) {
+    return (
+      <Container>
+        <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
+          <CircularProgress />
+        </Box>
+      </Container>
+    );
+  }
+
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Checkout</Typography>
-      <Stepper activeStep={activeStep}>
-        {steps.map(label => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      {/* Implementation details for each step */}
+    <Container maxWidth="lg">
+      <Typography variant="h3" component="h1" gutterBottom sx={{ mb: 4 }}>
+        Checkout
+      </Typography>
+
+      {error && (
+        <Alert severity="error" sx={{ mb: 3 }}>
+          {error}
+        </Alert>
+      )}
+
+      <Grid container spacing={4}>
+        {/* Order Items */}
+        <Grid item xs={12} md={8}>
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h5" gutterBottom>
+              Order Summary
+            </Typography>
+            
+            <List>
+              {items.map((item) => (
+                <ListItem key={item._id} sx={{ py: 2 }}>
+                  <ListItemAvatar>
+                    <Avatar
+                      src={item.product?.img}
+                      variant="square"
+                      sx={{ width: 60, height: 60 }}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={item.product?.name}
+                    secondary={`Size: ${item.size} | Qty: ${item.quantity}`}
+                    sx={{ ml: 2 }}
+                  />
+                  <Typography variant="h6">
+                    ${(item.price * item.quantity).toFixed(2)}
+                  </Typography>
+                </ListItem>
+              ))}
+            </List>
+
+            <Divider sx={{ my: 2 }} />
+
+            {/* Shipping Address */}
+            <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+              Shipping Address
+            </Typography>
+            {user?.address && (
+              <Box sx={{ p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Typography variant="body1">
+                  {user.address.street}<br />
+                  {user.address.city}, {user.address.state} {user.address.postal_code}<br />
+                  {user.address.country}
+                </Typography>
+              </Box>
+            )}
+          </Paper>
+        </Grid>
+
+        {/* Order Total */}
+        <Grid item xs={12} md={4}>
+          <Paper sx={{ p: 3, position: 'sticky', top: 100 }}>
+            <Typography variant="h5" gutterBottom>
+              Order Total
+            </Typography>
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+              <Typography>Subtotal</Typography>
+              <Typography>${orderSummary.subtotal.toFixed(2)}</Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+              <Typography>Shipping</Typography>
+              <Typography>
+                {orderSummary.shipping === 0 ? 'FREE' : `$${orderSummary.shipping.toFixed(2)}`}
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+              <Typography>Tax</Typography>
+              <Typography>${orderSummary.tax.toFixed(2)}</Typography>
+            </Box>
+
+            <Divider sx={{ my: 2 }} />
+
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+              <Typography variant="h6">Total</Typography>
+              <Typography variant="h6">${orderSummary.total.toFixed(2)}</Typography>
+            </Box>
+
+            <Button
+              fullWidth
+              variant="contained"
+              size="large"
+              onClick={handlePlaceOrder}
+              disabled={isLoading}
+              sx={{ mb: 2 }}
+            >
+              {isLoading ? <CircularProgress size={24} /> : 'Place Order'}
+            </Button>
+
+            <Typography variant="body2" color="text.secondary" align="center">
+              By placing this order, you agree to our terms and conditions.
+            </Typography>
+          </Paper>
+        </Grid>
+      </Grid>
     </Container>
   );
 };
 
 export default Checkout;
+
