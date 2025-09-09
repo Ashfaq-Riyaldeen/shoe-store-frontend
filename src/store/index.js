@@ -1,15 +1,23 @@
-// src/store/index.js (Updated to include cart)
+// Updated src/store/index.js (Complete store setup)
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
 import productReducer from './productSlice';
 import cartReducer from './cartSlice';
+import orderReducer from './orderSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     products: productReducer,
     cart: cartReducer,
+    orders: orderReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'],
+      },
+    }),
 });
 
 export default store;
