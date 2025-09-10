@@ -1,4 +1,4 @@
-// src/pages/Checkout.js
+// src/pages/Checkout.js - NO TAX, FREE SHIPPING
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -40,15 +40,13 @@ const Checkout = () => {
       return;
     }
 
-    // Calculate order summary
-    const shipping = total > 100 ? 0 : 10;
-    const tax = total * 0.08;
-    const finalTotal = total + shipping + tax;
+    // Calculate order summary - Always free shipping, no tax
+    const shipping = 0; // Always free
+    const finalTotal = total + shipping; // No tax
 
     setOrderSummary({
       subtotal: total,
       shipping,
-      tax,
       total: finalTotal,
     });
   }, [items, total, navigate]);
@@ -70,7 +68,7 @@ const Checkout = () => {
           quantity: item.quantity,
           size: item.size,
         })),
-        total_amount: orderSummary.total,
+        // Let backend calculate all totals
       };
 
       await dispatch(createOrder(orderData)).unwrap();
@@ -161,16 +159,11 @@ const Checkout = () => {
               <Typography>${orderSummary.subtotal.toFixed(2)}</Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-              <Typography>Shipping</Typography>
-              <Typography>
-                {orderSummary.shipping === 0 ? 'FREE' : `$${orderSummary.shipping.toFixed(2)}`}
-              </Typography>
-            </Box>
-
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-              <Typography>Tax</Typography>
-              <Typography>${orderSummary.tax.toFixed(2)}</Typography>
+              <Typography>Shipping</Typography>
+              <Typography color="success.main" fontWeight="bold">
+                FREE
+              </Typography>
             </Box>
 
             <Divider sx={{ my: 2 }} />
@@ -179,6 +172,10 @@ const Checkout = () => {
               <Typography variant="h6">Total</Typography>
               <Typography variant="h6">${orderSummary.total.toFixed(2)}</Typography>
             </Box>
+
+            <Alert severity="success" sx={{ mb: 2 }}>
+              🎉 Free shipping on all orders!
+            </Alert>
 
             <Button
               fullWidth
@@ -202,4 +199,3 @@ const Checkout = () => {
 };
 
 export default Checkout;
-

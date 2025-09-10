@@ -1,4 +1,4 @@
-// src/pages/Home.js
+// src/pages/Home.js - UPDATED: Always free shipping
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -43,7 +43,7 @@ const Home = () => {
     {
       icon: <LocalShipping sx={{ fontSize: 40 }} />,
       title: 'Free Shipping',
-      description: 'Free shipping on orders over $100',
+      description: 'Free shipping on all orders, always!', // UPDATED
     },
     {
       icon: <Security sx={{ fontSize: 40 }} />,
@@ -364,4 +364,3 @@ const Home = () => {
 };
 
 export default Home;
-

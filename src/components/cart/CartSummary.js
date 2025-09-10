@@ -1,4 +1,4 @@
-// src/components/cart/CartSummary.js
+// src/components/cart/CartSummary.js - NO TAX, FREE SHIPPING
 import React from 'react';
 import {
   Paper,
@@ -6,6 +6,7 @@ import {
   Divider,
   Box,
   Button,
+  Alert,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,9 +14,8 @@ const CartSummary = ({ items, total, onClearCart }) => {
   const navigate = useNavigate();
   
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
-  const shipping = total > 100 ? 0 : 10; // Free shipping over $100
-  const tax = total * 0.08; // 8% tax
-  const finalTotal = total + shipping + tax;
+  const shipping = 0; // Always free shipping
+  const finalTotal = total + shipping; // No tax
 
   return (
     <Paper sx={{ p: 3, position: 'sticky', top: 100 }}>
@@ -28,16 +28,11 @@ const CartSummary = ({ items, total, onClearCart }) => {
         <Typography>${total.toFixed(2)}</Typography>
       </Box>
       
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-        <Typography>Shipping</Typography>
-        <Typography>
-          {shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}
-        </Typography>
-      </Box>
-      
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
-        <Typography>Tax</Typography>
-        <Typography>${tax.toFixed(2)}</Typography>
+        <Typography>Shipping</Typography>
+        <Typography color="success.main" fontWeight="bold">
+          FREE
+        </Typography>
       </Box>
       
       <Divider sx={{ my: 2 }} />
@@ -47,11 +42,9 @@ const CartSummary = ({ items, total, onClearCart }) => {
         <Typography variant="h6">${finalTotal.toFixed(2)}</Typography>
       </Box>
 
-      {total > 0 && (
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          {shipping > 0 && `Spend $${(100 - total).toFixed(2)} more for free shipping!`}
-        </Typography>
-      )}
+      <Alert severity="success" sx={{ mb: 2 }}>
+        🎉 Free shipping on all orders!
+      </Alert>
       
       <Button
         fullWidth
@@ -77,4 +70,3 @@ const CartSummary = ({ items, total, onClearCart }) => {
 };
 
 export default CartSummary;
-

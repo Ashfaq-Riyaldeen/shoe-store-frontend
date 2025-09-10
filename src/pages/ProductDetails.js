@@ -1,4 +1,4 @@
-// src/pages/ProductDetails.js
+// src/pages/ProductDetails.js - UPDATED: Free shipping messaging
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -271,6 +271,11 @@ const ProductDetails = () => {
               </Box>
             </Box>
 
+            {/* Free Shipping Message */}
+            <Alert severity="success" sx={{ mb: 3 }}>
+              🎉 Free shipping included with your order!
+            </Alert>
+
             {/* Add to Cart Button */}
             <Button
               variant="contained"
@@ -325,4 +330,3 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
-
