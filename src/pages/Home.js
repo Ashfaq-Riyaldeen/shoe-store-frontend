@@ -143,23 +143,11 @@ const Home = () => {
                   },
                 }}
               >
-                {/* Placeholder for hero image */}
-                <Box
-                  sx={{
-                    width: '100%',
-                    height: 300,
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                    borderRadius: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    border: '2px dashed rgba(255, 255, 255, 0.3)',
-                  }}
-                >
-                  <Typography variant="h6" sx={{ opacity: 0.7 }}>
-                    Hero Image Placeholder
-                  </Typography>
-                </Box>
+                <img
+                  src="https://i.pinimg.com/736x/cc/3d/c5/cc3dc59d0b0e5c685215cb587b5af18f.jpg"
+                  alt="Hero"
+                  style={{ maxWidth: '100%', height: 'auto', borderRadius: 8 }}
+                />
               </Box>
             </Grid>
           </Grid>
@@ -238,15 +226,12 @@ const Home = () => {
                   sx={{
                     height: 250,
                     bgcolor: 'grey.200',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                   }}
-                >
-                  <Typography variant="h4" color="text.secondary">
-                    Men's Shoes
-                  </Typography>
-                </CardMedia>
+                  image="https://media.gq.com/photos/57066467f325b48d09952109/16:9/w_1280,c_limit/1801_Lacoste_Native_Article_Hero_1200x800px.jpg"
+                  title="Men's Collection"
+                />
                 <CardContent>
                   <Typography variant="h5" component="h3">
                     Men's Collection
@@ -273,15 +258,12 @@ const Home = () => {
                   sx={{
                     height: 250,
                     bgcolor: 'grey.200',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
                   }}
-                >
-                  <Typography variant="h4" color="text.secondary">
-                    Women's Shoes
-                  </Typography>
-                </CardMedia>
+                  image="https://media.istockphoto.com/id/938463764/photo/fits-perfect.jpg?s=612x612&w=0&k=20&c=fEaAzZ519zmLohQ9RFIQvMGQ8hkE5RfA7jZ1SoSRsL8="
+                  title="Women's Collection"
+                />
                 <CardContent>
                   <Typography variant="h5" component="h3">
                     Women's Collection
