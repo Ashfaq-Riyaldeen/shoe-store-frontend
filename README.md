@@ -1,5 +1,5 @@
 <!-- README.md -->
-# Stride & Style Frontend
+# Stride & Style Frontend ok
 
 A modern, elegant e-commerce frontend for a premium shoe store built with React, Material-UI, and Redux Toolkit.
 
