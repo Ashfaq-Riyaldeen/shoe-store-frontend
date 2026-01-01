@@ -84,29 +84,7 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          {/* Customer Service */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Customer Service
-            </Typography>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Link href="#" color="inherit" underline="hover">
-                Size Guide
-              </Link>
-              <Link href="#" color="inherit" underline="hover">
-                Shipping Info
-              </Link>
-              <Link href="#" color="inherit" underline="hover">
-                Return Policy
-              </Link>
-              <Link href="#" color="inherit" underline="hover">
-                FAQ
-              </Link>
-              <Link href="#" color="inherit" underline="hover">
-                Contact Us
-              </Link>
-            </Box>
-          </Grid>
+          
 
           {/* Contact Info */}
           <Grid item xs={12} sm={6} md={3}>

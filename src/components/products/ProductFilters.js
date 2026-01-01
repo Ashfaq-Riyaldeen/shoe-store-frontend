@@ -36,11 +36,12 @@ const ProductFilters = ({ filters, onFiltersChange, onApplyFilters }) => {
   }, []);
 
   const handleFilterChange = (field, value) => {
-    onFiltersChange({ [field]: value });
+    const updatedFilters = { ...filters, [field]: value };
+    onFiltersChange(updatedFilters);
   };
 
   const handleClearFilters = () => {
-    onFiltersChange({
+    const clearedFilters = {
       category: '',
       search: '',
       minPrice: '',
@@ -49,7 +50,9 @@ const ProductFilters = ({ filters, onFiltersChange, onApplyFilters }) => {
       size: '',
       sortBy: 'createdAt',
       sortOrder: 'desc',
-    });
+    };
+    onFiltersChange(clearedFilters);
+    onApplyFilters();
   };
 
   return (
@@ -144,8 +147,8 @@ const ProductFilters = ({ filters, onFiltersChange, onApplyFilters }) => {
               value={`${filters.sortBy}-${filters.sortOrder}`}
               onChange={(e) => {
                 const [sortBy, sortOrder] = e.target.value.split('-');
-                handleFilterChange('sortBy', sortBy);
-                handleFilterChange('sortOrder', sortOrder);
+                const updatedFilters = { ...filters, sortBy, sortOrder };
+                onFiltersChange(updatedFilters);
               }}
             >
               <MenuItem value="createdAt-desc">Newest First</MenuItem>

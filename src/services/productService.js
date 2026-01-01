@@ -3,7 +3,15 @@ import api from './api';
 
 export const productService = {
   getAllProducts: async (params = {}) => {
-    const response = await api.get('/products', { params });
+    // Filter out empty string values to avoid sending unnecessary params
+    const filteredParams = Object.entries(params).reduce((acc, [key, value]) => {
+      if (value !== '' && value !== null && value !== undefined) {
+        acc[key] = value;
+      }
+      return acc;
+    }, {});
+
+    const response = await api.get('/products', { params: filteredParams });
     return response.data;
   },
 
