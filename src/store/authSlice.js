@@ -8,6 +8,9 @@ export const login = createAsyncThunk(
     try {
       const response = await authService.login(credentials);
       localStorage.setItem('user', JSON.stringify(response.user));
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+      }
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -21,6 +24,9 @@ export const register = createAsyncThunk(
     try {
       const response = await authService.register(userData);
       localStorage.setItem('user', JSON.stringify(response.user));
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+      }
       return response;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -31,6 +37,7 @@ export const register = createAsyncThunk(
 export const logout = createAsyncThunk('auth/logout', async () => {
   await authService.logout();
   localStorage.removeItem('user');
+  localStorage.removeItem('token');
 });
 
 const initialState = {
