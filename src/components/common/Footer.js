@@ -93,13 +93,13 @@ const Footer = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <LocationOn fontSize="small" />
                 <Typography variant="body2">
-                  123 Fashion Street, Style City, SC 12345
+                  14 Main Street, Colombo 14, Sri Lanka
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <Phone fontSize="small" />
                 <Typography variant="body2">
-                  +1 (555) 123-4567
+                  +9477 1626 593
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>

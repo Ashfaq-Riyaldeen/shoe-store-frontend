@@ -175,7 +175,7 @@ const ProductDetails = () => {
             </Typography>
 
             <Typography variant="h4" color="primary" sx={{ mb: 2 }}>
-              ${currentProduct.price.toFixed(2)}
+              LKR {currentProduct.price.toFixed(2)}
             </Typography>
 
             {/* Categories */}

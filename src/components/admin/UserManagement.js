@@ -11,9 +11,7 @@ import {
   Paper,
   Typography,
   Chip,
-  IconButton,
 } from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
 import { toast } from 'react-toastify';
 
 const UserManagement = () => {
@@ -53,7 +51,6 @@ const UserManagement = () => {
               <TableCell>Email</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Join Date</TableCell>
-              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -69,14 +66,6 @@ const UserManagement = () => {
                   />
                 </TableCell>
                 <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
-                <TableCell>
-                  <IconButton size="small">
-                    <Edit />
-                  </IconButton>
-                  <IconButton size="small" color="error">
-                    <Delete />
-                  </IconButton>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

@@ -59,7 +59,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
               Size: {item.size}
             </Typography>
             <Typography variant="h6" color="primary" sx={{ mt: 1 }}>
-              ${item.price?.toFixed(2)}
+              LKR {item.price?.toFixed(2)}
             </Typography>
           </Box>
           
@@ -107,7 +107,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemoveItem }) => {
           </IconButton>
 
           <Typography variant="body2" sx={{ ml: 2 }}>
-            Subtotal: ${(item.price * quantity).toFixed(2)}
+            Subtotal: LKR {(item.price * quantity).toFixed(2)}
           </Typography>
         </Box>
       </CardContent>

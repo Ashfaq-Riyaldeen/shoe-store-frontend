@@ -78,7 +78,7 @@ const ProductCard = ({ product, onAddToCart }) => {
           ))}
         </Box>
         <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
-          ${product.price.toFixed(2)}
+          LKR {product.price.toFixed(2)}
         </Typography>
       </CardContent>
       <CardActions sx={{ pt: 0 }}>

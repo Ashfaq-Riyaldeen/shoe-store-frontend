@@ -123,7 +123,7 @@ const Checkout = () => {
                     sx={{ ml: 2 }}
                   />
                   <Typography variant="h6">
-                    ${(item.price * item.quantity).toFixed(2)}
+                    LKR {(item.price * item.quantity).toFixed(2)}
                   </Typography>
                 </ListItem>
               ))}
@@ -156,7 +156,7 @@ const Checkout = () => {
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
               <Typography>Subtotal</Typography>
-              <Typography>${orderSummary.subtotal.toFixed(2)}</Typography>
+              <Typography>LKR {orderSummary.subtotal.toFixed(2)}</Typography>
             </Box>
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
@@ -170,7 +170,7 @@ const Checkout = () => {
 
             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
               <Typography variant="h6">Total</Typography>
-              <Typography variant="h6">${orderSummary.total.toFixed(2)}</Typography>
+              <Typography variant="h6">LKR {orderSummary.total.toFixed(2)}</Typography>
             </Box>
 
             <Alert severity="success" sx={{ mb: 2 }}>

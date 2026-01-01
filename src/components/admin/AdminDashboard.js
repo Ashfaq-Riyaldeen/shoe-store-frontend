@@ -35,18 +35,32 @@ const AdminDashboard = () => {
   const fetchDashboardStats = async () => {
     try {
       setIsLoading(true);
-      
+
       // Fetch order stats
       const orderStats = await orderService.getOrderStats();
-      
+
       // Fetch product count
       const productData = await productService.getAllProducts({ limit: 1 });
-      
+
+      // Fetch user count
+      let userCount = 0;
+      try {
+        const userResponse = await fetch(`${process.env.REACT_APP_API_URL}/users/admin/all`, {
+          credentials: 'include',
+        });
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          userCount = userData.users?.length || 0;
+        }
+      } catch (userError) {
+        console.error('Error fetching user count:', userError);
+      }
+
       setStats({
         totalOrders: orderStats.totalOrders || 0,
         totalRevenue: orderStats.totalRevenue || 0,
         totalProducts: productData.pagination?.totalProducts || 0,
-        totalUsers: 0, // You'll need to implement this endpoint
+        totalUsers: userCount,
       });
     } catch (error) {
       setError('Failed to fetch dashboard statistics');
@@ -59,7 +73,7 @@ const AdminDashboard = () => {
   const statCards = [
     {
       title: 'Total Revenue',
-      value: `$${stats.totalRevenue.toFixed(2)}`,
+      value: `LKR ${stats.totalRevenue.toFixed(2)}`,
       icon: <TrendingUp sx={{ fontSize: 40 }} />,
       color: 'success.main',
     },

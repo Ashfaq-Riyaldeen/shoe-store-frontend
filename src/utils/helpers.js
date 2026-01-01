@@ -1,9 +1,6 @@
 // src/utils/helpers.js
 export const formatPrice = (price) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(price);
+  return `LKR ${price.toFixed(2)}`;
 };
 
 export const formatDate = (date) => {

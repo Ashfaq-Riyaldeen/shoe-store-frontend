@@ -197,7 +197,7 @@ const ProductManagement = () => {
                   />
                 </TableCell>
                 <TableCell>{product.name}</TableCell>
-                <TableCell>${product.price.toFixed(2)}</TableCell>
+                <TableCell>LKR {product.price.toFixed(2)}</TableCell>
                 <TableCell>{product.quantity}</TableCell>
                 <TableCell>
                   {product.categories?.map(cat => (

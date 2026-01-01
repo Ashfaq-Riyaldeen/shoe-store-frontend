@@ -101,7 +101,7 @@ const OrderManagement = () => {
                 <TableCell>{order.user_id?.username || 'N/A'}</TableCell>
                 <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell>{order.products.length}</TableCell>
-                <TableCell>${order.total_amount.toFixed(2)}</TableCell>
+                <TableCell>LKR {order.total_amount.toFixed(2)}</TableCell>
                 <TableCell>
                   <FormControl size="small">
                     <Select
@@ -160,7 +160,7 @@ const OrderManagement = () => {
                     </ListItemAvatar>
                     <ListItemText
                       primary={item.product_id?.name}
-                      secondary={`Size: ${item.size} | Qty: ${item.quantity} | Price: $${item.price}`}
+                      secondary={`Size: ${item.size} | Qty: ${item.quantity} | Price: LKR ${item.price}`}
                     />
                   </ListItem>
                 ))}

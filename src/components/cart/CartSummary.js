@@ -25,7 +25,7 @@ const CartSummary = ({ items, total, onClearCart }) => {
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
         <Typography>Items ({itemCount})</Typography>
-        <Typography>${total.toFixed(2)}</Typography>
+        <Typography>LKR {total.toFixed(2)}</Typography>
       </Box>
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
@@ -39,7 +39,7 @@ const CartSummary = ({ items, total, onClearCart }) => {
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
         <Typography variant="h6">Total</Typography>
-        <Typography variant="h6">${finalTotal.toFixed(2)}</Typography>
+        <Typography variant="h6">LKR {finalTotal.toFixed(2)}</Typography>
       </Box>
 
       <Alert severity="success" sx={{ mb: 2 }}>
