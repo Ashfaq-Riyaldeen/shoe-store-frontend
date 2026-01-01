@@ -16,17 +16,12 @@ import { productService } from '../../services/productService';
 
 const ProductFilters = ({ filters, onFiltersChange, onApplyFilters }) => {
   const [availableSizes, setAvailableSizes] = useState([]);
-  const [availableColors, setAvailableColors] = useState([]);
 
   useEffect(() => {
     const fetchFilters = async () => {
       try {
-        const [sizesData, colorsData] = await Promise.all([
-          productService.getAvailableSizes(),
-          productService.getAvailableColors(),
-        ]);
+        const sizesData = await productService.getAvailableSizes();
         setAvailableSizes(sizesData.availableSizes);
-        setAvailableColors(colorsData.availableColors);
       } catch (error) {
         console.error('Error fetching filter options:', error);
       }
@@ -46,7 +41,6 @@ const ProductFilters = ({ filters, onFiltersChange, onApplyFilters }) => {
       search: '',
       minPrice: '',
       maxPrice: '',
-      color: '',
       size: '',
       sortBy: 'createdAt',
       sortOrder: 'desc',
@@ -97,23 +91,6 @@ const ProductFilters = ({ filters, onFiltersChange, onApplyFilters }) => {
               {availableSizes.map((size) => (
                 <MenuItem key={size} value={size}>
                   {size}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4}>
-          <FormControl fullWidth>
-            <InputLabel>Color</InputLabel>
-            <Select
-              value={filters.color}
-              onChange={(e) => handleFilterChange('color', e.target.value)}
-            >
-              <MenuItem value="">All Colors</MenuItem>
-              {availableColors.map((color) => (
-                <MenuItem key={color} value={color}>
-                  {color}
                 </MenuItem>
               ))}
             </Select>

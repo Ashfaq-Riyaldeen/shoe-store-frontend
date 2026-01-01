@@ -32,7 +32,7 @@ const Footer = () => {
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           {/* Company Info */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={4}>
             <Typography
               variant="h5"
               sx={{
@@ -61,7 +61,7 @@ const Footer = () => {
           </Grid>
 
           {/* Quick Links */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={4}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Quick Links
             </Typography>
@@ -84,10 +84,8 @@ const Footer = () => {
             </Box>
           </Grid>
 
-          
-
           {/* Contact Info */}
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={4}>
             <Typography variant="h6" sx={{ mb: 2 }}>
               Contact Us
             </Typography>

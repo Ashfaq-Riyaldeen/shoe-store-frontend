@@ -41,7 +41,6 @@ const initialState = {
     search: '',
     minPrice: '',
     maxPrice: '',
-    color: '',
     size: '',
     sortBy: 'createdAt',
     sortOrder: 'desc',

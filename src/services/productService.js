@@ -29,10 +29,5 @@ export const productService = {
     const response = await api.get('/products/sizes');
     return response.data;
   },
-
-  getAvailableColors: async () => {
-    const response = await api.get('/products/colors');
-    return response.data;
-  },
 };
 

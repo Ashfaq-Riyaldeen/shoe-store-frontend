@@ -58,11 +58,6 @@ const Products = () => {
       initialFilters.maxPrice = maxPrice;
     }
 
-    const color = urlParams.get('color');
-    if (color) {
-      initialFilters.color = color;
-    }
-
     const size = urlParams.get('size');
     if (size) {
       initialFilters.size = size;
